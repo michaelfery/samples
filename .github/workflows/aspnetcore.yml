@@ -19,3 +19,8 @@ jobs:
       run: dotnet test --configuration Release samples/aspnetcore/mvc/domain/test/**/*.csproj
     - name: Package with dotnet
       run: dotnet publish --configuration Release samples/aspnetcore/mvc/domain/src/MvcSample/MvcSample.csproj
+    - name: Publish artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: webapp
+        path: samples/aspnetcore/mvc/domain/src/MvcSample/bin/Release/netcoreapp2.2/publish
