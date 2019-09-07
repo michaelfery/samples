@@ -24,3 +24,19 @@ jobs:
       with:
         name: webapp
         path: samples/aspnetcore/mvc/domain/src/MvcSample/bin/Release/netcoreapp2.2/publish
+
+  deploy:
+    needs: build
+    runs-on: windows-latest
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@master
+      with:
+        name: webapp
+
+    - name: Deploy to Azure App Service
+      uses: azure/appservice-actions/webapp@master
+      with:
+        app-name: myAppName
+        package: webapp
+        publish-profile: ${{ secrets.azureWebAppPublishProfile }}
